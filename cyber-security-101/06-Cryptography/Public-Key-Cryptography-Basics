@@ -74,4 +74,31 @@
 - Pasting a signature image = NOT a digital signature
 
 ---
+## SSL/TLS Certificates
 
+- HTTPS uses certs to prove a site is real
+- Chain of trust: Root CA → Organisation → Certificate
+- Your browser trusts Root CAs by default
+- `Let's Encrypt` = free TLS certs
+
+---
+
+## PGP / GPG
+
+- PGP = encrypt files + digital signing
+- GPG = open-source version of PGP
+
+### Commands
+
+- `gpg --full-gen-key` — generate key pair
+- `gpg --import backup.key` — import key
+- `gpg --decrypt file.gpg` — decrypt file
+- CTF: crack passphrase with `gpg2john` → `john`
+
+---
+
+## Key Terms
+
+- `Cryptanalysis` — science of breaking crypto systems
+- `Brute-Force` — try every possible key
+- `Dictionary Attack` — try common words instead
