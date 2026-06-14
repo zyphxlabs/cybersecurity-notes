@@ -82,3 +82,30 @@
 - `John the Ripper` — CPU-based, works in VMs out of the box
 - `rockyou.txt` — main wordlist, found at `/usr/share/wordlists/rockyou.txt`
 
+### Hash ID
+
+- Use `hashID` tool or check prefixes to identify hash type
+- Context matters: web app DB = likely MD5, Windows = likely NTLM
+- Reference: Hashcat Example Hashes page
+
+---
+
+## Hashing for Integrity
+
+- Same input always = same output
+- Use `sha256sum file` → compare to official hash to verify a download
+- Finding duplicate files: same hash = identical files
+
+## HMAC
+
+- Keyed-Hash Message Authentication Code
+- Combines a secret key + hash function
+- Proves both authenticity (who sent it) and integrity (not altered)
+
+---
+
+## Hashing vs Encoding vs Encryption
+
+- `Hashing` — one-way, fixed output, cannot reverse
+- `Encoding` — reversible, no key, just format change (Base64, UTF-8)
+- `Encryption` — reversible, requires key, protects confidentiality
