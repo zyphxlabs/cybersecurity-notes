@@ -1,16 +1,20 @@
 # Cybersecurity Notes
-Daily notes from my cybersecurity learning journey.
-Started May 2026 — updated every single day.
 
-## What's Here
-- Pre-Security notes — 7 sections
-- Cyber Security 101 notes — 14 sections (started May 24)
-- Google Cybersecurity Certificate notes — (started June 15)
-- IBM Cybersecurity Analyst notes — coming Jul 18
-- Cheatsheets — growing throughout the journey
+Notes from my cybersecurity journey — started from zero in May 2026. No CS background, no prior experience. Just documenting everything I learn, room by room, module by module.
 
-## Progress
-- [x] Pre-Security — Done (May 23, 2026)
-- [ ] Cyber Security 101 — Started May 24
-- [ ] Google Cybersecurity Certificate — Starting June 15
-- [ ] IBM Cybersecurity Analyst — Starting Jul 18
+If something confused me, I wrote it down until it didn't. That's basically what this repo is.
+
+## What's in here
+
+- `pre-security/` — Pre Security notes. Done
+- `cyber-security-101/`   - Cybersecurity 101  notes. In progress.
+- `Google-cybersecurity/` — Google Cybersecurity Certificate notes. In progress.
+- `cheatsheets/` —  Growing as I go.
+- `IBM-cybersecurity/` — starting Jul 18.
+
+## Where I'm at
+
+- [x] Pre-Security — done May 2026
+- [ ] CS101 —  in progress
+- [ ] Google Cert — in progress
+- [ ] IBM Cert — starting Jul 18
