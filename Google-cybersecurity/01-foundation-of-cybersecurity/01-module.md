@@ -1,4 +1,4 @@
-# Course 1 Module 1. What is Cybersecurity
+# Course 1 Module 1
 
 ## The Main Idea
 
