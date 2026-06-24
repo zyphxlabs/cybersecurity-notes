@@ -1,328 +1,79 @@
-\# Active Directory Basics
+## What is a Windows Domain
 
-\---
+A windows domain is basically when a business groups all their users and computers together and manages everything from one place through something called Active Directory. The server that runs all of this is called a Domain Controller and it's basically the brain of the whole setup. The two big reasons companies do this is so they can manage all users from one place and push security policies across every single computer without touching them one by one.
 
+## Active Directory Objects
 
+### Users
 
-\## What is a Windows Domain
+Users are security principals which means they can be authenticated and given privileges. There are two types really people like employees and services like IIS or MSSQL and service users only get the privileges they need to run their specific service nothing more.
 
-A group of users and computers under the administration of a business.
+### Machines
 
-Centralises management through Active Directory (AD).
+Every computer that joins the domain gets its own machine object created for it. Machine accounts are also security principals but with limited rights and the account name is always the computer name with a dollar sign at the end like DC01$. Passwords for these are auto rotated and are 120 random characters so nobody is manually managing them.
 
-The server running AD services is called a Domain Controller (DC).
+### Security Groups
 
+Security groups are used to give access rights to a bunch of people at once instead of doing it one by one. Some important ones:
 
+- Domain Admins — full admin over the entire domain including DCs
+- Server Operators — can administer DCs but cannot change admin group memberships
+- Backup Operators — can access any file regardless of permissions for backup purposes
+- Account Operators — can create or modify accounts in the domain
+- Domain Users — all existing user accounts
+- Domain Computers — all existing computers
+- Domain Controllers — all existing DCs
 
-\*\*Two main advantages:\*\*
+## Organisational Units
 
-\- Centralised identity management — configure all users from one place
+OUs are basically containers used to group users and machines that need similar policies applied to them. One important thing is a user can only be in one OU at a time which is different from security groups. The difference between OUs and security groups is that OUs are for applying policies while security groups are for granting permissions over resources.
 
-\- Managing security policies — deploy policies across all computers from AD
+Default containers that come with any domain:
 
+- Builtin — default groups for any Windows host
+- Computers — machines joining network go here by default
+- Domain Controllers — default OU for DCs
+- Users — default users and groups for domain wide context
+- Managed Service Accounts — accounts used by services
 
+## Machine Categories
 
-\---
+Three types of machines exist in a domain:
 
+- Workstations — regular user devices and no privileged users should ever sign into these
+- Servers — provide services to users or other servers
+- Domain Controllers — most sensitive ones because they contain hashed passwords for every account in the domain
 
+## Group Policy Objects
 
-\## Active Directory Objects
+GPOs are basically collections of settings you apply to OUs to control how computers and users behave. You create a GPO then link it to whatever OU you want and it applies to that OU and everything underneath it. The settings sync through a network share on the DC called SYSVOL and it can take up to 2 hours to apply but you can force it immediately with `gpupdate /force`.
 
+## Delegation
 
+Delegation is when you give a specific person control over certain OUs without making them a full Domain Admin. A common example is giving IT support the ability to reset passwords for regular users without touching anything else. The PowerShell commands for this are:
 
-\### Users
+- `Set-ADAccountPassword sophie -Reset -NewPassword (Read-Host -AsSecureString -Prompt 'New Password') -Verbose` — resets the password
+- `Set-ADUser -ChangePasswordAtLogon $true -Identity sophie -Verbose` — forces password reset at next login
 
-\- Security principals — can be authenticated and assigned privileges
+## Authentication Protocols
 
-\- Two types: People (employees) and Services (IIS, MSSQL etc)
+### Kerberos
 
-\- Service users only have privileges needed to run their specific service
+Kerberos is the default authentication system in modern Windows and it works on tickets. User sends their username and an encrypted timestamp to the KDC which gives back a Ticket Granting Ticket and a Session Key. Then when the user wants to access a service they send that TGT along with the SPN to get a Ticket Granting Service ticket and that TGS is what actually gets them into the service.
 
+Key terms to know:
 
+- KDC — Key Distribution Center — runs on DC and creates the tickets
+- TGT — Ticket Granting Ticket — proves you already authenticated
+- TGS — Ticket Granting Service — grants access to a specific service
+- SPN — Service Principal Name — identifies which service you want
 
-\### Machines
+### NetNTLM
 
-\- Every computer joining the domain gets a machine object created
+NetNTLM is the older one kept around for compatibility and it works on a challenge response system. Server sends a random challenge to the client and the client combines their NTLM hash with that challenge and sends it back. The DC then recalculates it and checks if it matches. The good thing is the actual password or hash never travels over the network.
 
-\- Machine accounts are security principals with limited domain rights
+## Trees and Forests
 
-\- Machine account name = computer name + $ sign (example: DC01$)
+A tree is when multiple domains share the same namespace joined together so thm.local could split into uk.thm.local and us.thm.local. A forest is when you take multiple trees with completely different namespaces and combine them into one network like thm.local and mht.local becoming one forest.
 
-\- Passwords are auto-rotated — 120 random characters
-
-
-
-\### Security Groups
-
-Used to assign access rights to resources for entire groups instead of single users.
-
-
-
-| Group | Description |
-
-|-------|-------------|
-
-| Domain Admins | Full admin over entire domain including DCs |
-
-| Server Operators | Can administer DCs but cannot change admin group memberships |
-
-| Backup Operators | Can access any file regardless of permissions — for backups |
-
-| Account Operators | Can create or modify accounts in the domain |
-
-| Domain Users | All existing user accounts |
-
-| Domain Computers | All existing computers |
-
-| Domain Controllers | All existing DCs |
-
-
-
-\---
-
-
-
-\## Organisational Units (OUs)
-
-Container objects used to classify users and machines.
-
-Used to define sets of users with similar policy requirements.
-
-A user can only be in ONE OU at a time.
-
-
-
-\*\*Default containers:\*\*
-
-\- Builtin — default groups for any Windows host
-
-\- Computers — machines joining network go here by default
-
-\- Domain Controllers — default OU for DCs
-
-\- Users — default users and groups for domain-wide context
-
-\- Managed Service Accounts — accounts used by services
-
-
-
-\*\*OUs vs Security Groups:\*\*
-
-\- OUs — for applying policies to users and computers
-
-\- Security Groups — for granting permissions over resources
-
-\- A user can be in many security groups but only one OU
-
-
-
-\---
-
-
-
-\## Machine Categories
-
-| Category | Description |
-
-|----------|-------------|
-
-| Workstations | Regular user devices — no privileged users should sign in |
-
-| Servers | Provide services to users or other servers |
-
-| Domain Controllers | Most sensitive — contain hashed passwords for all accounts |
-
-
-
-\---
-
-
-
-\## Group Policy Objects (GPOs)
-
-Collection of settings applied to OUs.
-
-Managed via Group Policy Management tool.
-
-
-
-\*\*How GPOs work:\*\*
-
-\- Create GPO under Group Policy Objects
-
-\- Link it to the OU where you want policies applied
-
-\- GPO applies to linked OU and all sub-OUs under it
-
-\- Synced via SYSVOL network share on DC
-
-\- Takes up to 2 hours to apply — force with `gpupdate /force`
-
-
-
-\*\*Example GPOs created in room:\*\*
-
-\- Restrict Control Panel Access — linked to Marketing, Sales, Management OUs
-
-\- Auto Lock Screen (5 min inactivity) — linked to root domain
-
-
-
-\---
-
-
-
-\## Delegation
-
-Giving specific users control over certain OUs without making them Domain Admin.
-
-
-
-Common use case — giving IT support ability to reset passwords for low-privilege users.
-
-
-
-\*\*PowerShell command to reset a password:\*\*
-
-```powershell
-
-Set-ADAccountPassword sophie -Reset -NewPassword (Read-Host -AsSecureString -Prompt 'New Password') -Verbose
-
-```
-
-
-
-\*\*Force password reset at next login:\*\*
-
-```powershell
-
-Set-ADUser -ChangePasswordAtLogon $true -Identity sophie -Verbose
-
-```
-
-
-
-\---
-
-
-
-\## Authentication Protocols
-
-
-
-\### Kerberos (Default — Modern Windows)
-
-Ticket-based authentication system.
-
-
-
-\*\*Process:\*\*
-
-1\. User sends username + encrypted timestamp to KDC
-
-2\. KDC returns Ticket Granting Ticket (TGT) + Session Key
-
-3\. User sends TGT + SPN to KDC to request Ticket Granting Service (TGS)
-
-4\. KDC returns TGS + Service Session Key
-
-5\. User sends TGS to service — connection established
-
-
-
-\*\*Key terms:\*\*
-
-\- KDC — Key Distribution Center — runs on DC — creates tickets
-
-\- TGT — Ticket Granting Ticket — proves you authenticated
-
-\- TGS — Ticket Granting Service — grants access to specific service
-
-\- SPN — Service Principal Name — identifies the service you want
-
-
-
-\### NetNTLM (Legacy — kept for compatibility)
-
-Challenge-response mechanism.
-
-
-
-\*\*Process:\*\*
-
-1\. Client sends authentication request to server
-
-2\. Server sends random challenge to client
-
-3\. Client combines NTLM hash + challenge and sends response
-
-4\. Server forwards challenge + response to DC
-
-5\. DC recalculates and compares response
-
-6\. Result sent back to client
-
-
-
-Password or hash is never transmitted over network.
-
-
-
-\---
-
-
-
-\## Trees and Forests
-
-
-
-\### Trees
-
-Multiple domains sharing the same namespace joined together.
-
-Example: thm.local splits into uk.thm.local and us.thm.local
-
-
-
-\### Forests
-
-Union of several trees with different namespaces into one network.
-
-Example: thm.local tree + mht.local tree = one forest
-
-
-
-\### Trust Relationships
-
-Allow users from one domain to access resources in another.
-
-
-
-\- \*\*One-way trust\*\* — Domain AAA trusts BBB — users on BBB can access AAA
-
-\- \*\*Two-way trust\*\* — both domains mutually authorise each other
-
-\- Joining domains in a tree or forest creates two-way trust by default
-
-\- Trust does not automatically grant access — still must be configured
-
-
-
-\---
-
-
-
-\## Key Commands
-
-| Command | What it does |
-
-|---------|-------------|
-
-| `gpupdate /force` | Forces immediate GPO sync on a computer |
-
-| `lusrmgr.msc` | Local Users and Groups |
-
-| `Set-ADAccountPassword` | Reset AD user password via PowerShell |
-
-| `Set-ADUser` | Modify AD user properties via PowerShell |
-
+Trust relationships let users from one domain access resources in another. One way trust means domain AAA trusts BBB so BBB users can access AAA. Two way trust means both domains mutually authorise each other and this is created by default when joining a tree or forest. But trust does not automatically give access you still have to configure permissions separately.
