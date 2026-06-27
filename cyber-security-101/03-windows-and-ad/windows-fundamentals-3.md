@@ -1,79 +1,47 @@
-# Windows Fundamentals 3
-
 ## Windows Update
-Microsoft releases security updates and patches for Windows.
-Updates usually come on the second Tuesday of every month — called Patch Tuesday.
-Critical updates can be pushed anytime without waiting for Patch Tuesday.
-Windows 10 and later — updates cannot be ignored, only postponed.
-Command to open Windows Update: control /name Microsoft.WindowsUpdate
+
+Microsoft keeps releasing security updates and patches for Windows and they usually come on the second Tuesday of every month which people call Patch Tuesday but if something is really critical they can push it anytime without waiting for that day. Windows 10 and later you cannot ignore updates you can only postpone them. Command to open it is control /name Microsoft.WindowsUpdate
 
 ## Windows Security
-Central place to manage all security tools on Windows.
-Status icons:
-- Green — device is protected, no action needed
-- Yellow — safety recommendation to review
-- Red — something needs immediate attention
+
+This is basically the central place where all your security tools live on Windows and it uses status icons to tell you whats going on
+
+- Green — device is protected no action needed
+- Yellow — something to review
+- Red — needs immediate attention
 
 ## Virus and Threat Protection
-Two parts — Current Threats and Protection Settings.
 
-Scan types:
-- Quick Scan — checks common threat locations only
-- Full Scan — checks everything, takes over an hour
-- Custom Scan — you choose which files to scan
+This has two parts current threats and protection settings. For scanning you have three options
 
-Threat history:
-- Quarantined threats — isolated and prevented from running
-- Allowed threats — threats you manually allowed to run
+- Quick Scan — only checks common threat locations
+- Full Scan — checks everything takes over an hour
+- Custom Scan — you pick which files to scan
 
-Protection settings:
-- Real-time protection — stops malware from installing or running
-- Cloud-delivered protection — faster protection using cloud data
-- Controlled folder access — blocks unknown apps from modifying files
-- Exclusions — files or folders skipped during scanning
-- Ransomware protection — requires controlled folder access enabled
+Threat history keeps track of quarantined threats which are isolated and blocked from running and allowed threats which are the ones you manually said were fine. Protection settings have real-time protection which stops malware from installing or running and cloud-delivered protection which uses cloud data to give faster protection and controlled folder access which blocks unknown apps from modifying your files and you can also set exclusions for files or folders you want skipped during scanning. Ransomware protection also exists but it needs controlled folder access to be enabled first
 
 ## Windows Firewall
-Controls what traffic is allowed in and out through ports.
-Think of it as a security guard checking everything entering or leaving.
 
-Three firewall profiles:
-- Domain — used when connected to a domain controller
-- Private — home or trusted private networks
-- Public — public networks like coffee shops and airports
+Windows Firewall controls what traffic is allowed in and out through ports basically think of it like a security guard checking everything entering or leaving. It has three profiles
 
-Command to open firewall: WF.msc
+- Domain — when you are connected to a domain controller
+- Private — home or trusted networks
+- Public — public places like coffee shops and airports
+
+Command to open it is WF.msc
 
 ## Microsoft Defender SmartScreen
-Protects against phishing websites, malware sites, and malicious file downloads.
-Settings: Warn, Block, or Off.
-Always leave it on Warn or Block.
+
+This protects against phishing websites malware sites and malicious file downloads and you can set it to Warn Block or Off. Always keep it on Warn or Block never turn it off completely
 
 ## Device Security
-Core Isolation:
-- Memory Integrity — stops malicious code from injecting into high security processes
 
-TPM — Trusted Platform Module:
-- Hardware chip that handles cryptographic operations
-- Tamper resistant — malware cannot touch its security functions
-
-BitLocker:
-- Encrypts entire drives to protect data if device is stolen
-- Works best with TPM installed
-- Not available on all Windows editions
+soThere is a Core Isolation which  has something called Memory Integrity which basically stops malicious code from injecting itself into high security processes. Then there is TPM which stands for Trusted Platform Module it is a hardware chip that handles cryptographic operations and the good thing is malware cannot touch it because it is tamper resistant. BitLocker encrypts entire drives so if your device gets stolen the data is protected it works best when TPM is installed but it is not available on all Windows editions
 
 ## Volume Shadow Copy Service (VSS)
-Creates snapshots of data at a point in time.
-Used for system restore and backup.
-Stored in System Volume Information folder.
 
-Security relevance:
-Ransomware specifically targets and deletes VSS snapshots.
-This makes recovery impossible without an offline backup.
-Always keep offline backups — never rely on VSS alone.
+Now coming to the VSS  so it creates snapshots of your data at a point in time and is used for system restore and backup and these are stored in the System Volume Information folder. The security relevance here is that ransomware specifically targets and deletes VSS snapshots which makes recovery impossible without an offline backup so never rely on VSS alone always keep offline backups
 
 ## Living Off The Land
-Attackers use built-in Windows tools to avoid detection.
-They do not bring their own malware — they use what is already there.
-Examples: PowerShell, WMI, certutil, rundll32.
-This makes detection harder because legitimate tools are being used maliciously.
+
+This is when attackers use built-in Windows tools to avoid detection so they do not bring their own malware they just use what is already on the system. Examples are PowerShell WMI certutil rundll32. This makes it really hard to detect because these are all legitimate tools just being used maliciously
