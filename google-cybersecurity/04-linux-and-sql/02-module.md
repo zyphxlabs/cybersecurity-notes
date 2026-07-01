@@ -65,9 +65,3 @@ There are many types of shells like bash csh ksh tcsh and zsh but bash is the de
 There are basically three ways shell responds to you input output or error input is what you type in like echo hello output is what you get back like just hello printed and error happens when system cant understand your command like if you misspell echo as eco it throws an error back at you
 
 This whole input output error cycle is basically how every interaction with shell works nothing more nothing less
-
-## Morris worm and Equifax as examples
-
-Morris worm came in 1988 when someone made it out of curiosity to measure the size of internet but end up taking down 6000 computers
-
-Equifax breach occurred when a company had multiple vulnerabilities in their system but they kept ignoring so as a result it served with an attack in 2017 resulting in 143 million records stolen later company was fined
