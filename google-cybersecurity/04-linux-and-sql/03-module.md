@@ -105,9 +105,3 @@ Linux has a massive online community since its open source so most common proble
 - Whatis gives quick one line description of what a command does
 - Apropos searches man page descriptions for a keyword useful when you dont even know the exact command name yet
 - Adding -a with apropos lets you search using two keywords together to narrow down results
-
-## Morris worm and Equifax as examples
-
-Morris worm came in 1988 when someone made it out of curiosity to measure the size of internet but end up taking down 6000 computers
-
-Equifax breach occurred when a company had multiple vulnerabilities in their system but they kept ignoring so as a result it served with an attack in 2017 resulting in 143 million records stolen later company was fined
