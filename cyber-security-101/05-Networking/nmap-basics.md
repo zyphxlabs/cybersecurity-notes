@@ -1,44 +1,49 @@
-# Nmap Basics
-## What It Is
-- Network scanner — finds live hosts and open ports
-- Can detect OS, service versions, and running software
-- Run with sudo for full features
+## Nmap Basics
+
+Nmap is basically a network scanner that finds live hosts and open ports on a network you can run it with sudo to unlock full features like os detection it also detects service versions and running software so you know exactly whats up on a machine
+
 ## Host Discovery
-- `-sn` — ping scan, find live hosts only
-- `-sL` — list targets without scanning
-- Local network — uses ARP requests
-- Remote network — uses ICMP, TCP SYN/ACK
+
+- -sn ping scan finds live hosts only doesnt scan ports
+- -sL just lists the targets without actually scanning them
+
+On a local network it uses arp requests to find hosts but on a remote network it switches to icmp or tcp syn/ack since arp doesnt work outside the local segment
+
 ## Port Scanning
-- `-sT` — TCP connect scan, full three-way handshake
-- `-sS` — SYN scan, stealth, only sends SYN never completes handshake
-- `-sU` — UDP scan
-- `-F` — fast mode, top 100 ports only
-- `-p 80,443` — scan specific ports
-- `-p 1-1024` — scan port range
-- `-p-` — scan all 65535 ports
-- `-Pn` — treat all hosts as online, skip host discovery
+
+- -sT tcp connect scan completes the full three way handshake
+- -sS syn scan the stealthy one sends syn but never finishes the handshake so its quieter
+- -sU udp scan
+- -F fast mode only checks top 100 ports
+- -p 80,443 scan specific ports
+- -p 1-1024 scan a port range
+- -p- scan literally all 65535 ports
+- -Pn treats all hosts as online and skips host discovery completely useful when host discovery is being blocked
+
 ## Service and OS Detection
-- `-sV` — detect service versions
-- `-O` — detect operating system
-- `-A` — OS + version + traceroute all in one
+
+- -sV detects service versions running on open ports
+- -O detects the operating system
+- -A combines os detection version detection and traceroute all in one scan
+
 ## Timing Templates
-- `-T0` paranoid — very slow, 9 hours for 100 ports
-- `-T1` sneaky — slow, evades IDS
-- `-T2` polite — slower than normal
-- `-T3` normal — default
-- `-T4` aggressive — faster, good networks
-- `-T5` insane — very fast, may miss things
-- `--min-rate 100` / `--max-rate 100` — control packets per second
-- `--host-timeout` — skip slow hosts after set time
+
+Nmap has timing templates from t0 to t5 and basically the lower the number the slower and sneakier the scan is t0 paranoid is super slow like 9 hours for 100 ports made to dodge detection t1 sneaky is slow too and evades ids t2 polite is slower than normal so it doesnt hog bandwidth t3 normal is just the default speed t4 aggressive is faster and works fine on good stable networks and t5 insane is the fastest one but it might miss stuff because its rushing
+
+You can also control speed manually with --min-rate 100 or --max-rate 100 to set packets per second and --host-timeout to skip hosts that are taking too long to respond
+
 ## Output
-- `-oN file.txt` — normal readable output
-- `-oX file.xml` — XML format
-- `-oG file.gnmap` — grepable format
-- `-oA basename` — save all three formats at once
-- `-v` / `-vv` — verbose output
-- `-d` / `-d9` — debug output
+
+- -oN file.txt normal readable output
+- -oX file.xml xml format
+- -oG file.gnmap grepable format
+- -oA basename saves all three formats together at once
+- -v or -vv gives verbose output
+- -d or -d9 gives debug output for deeper troubleshooting
+
 ## Target Formats
-- `192.168.1.1` — single IP
-- `192.168.1.1-10` — IP range
-- `192.168.1.0/24` — full subnet
-- `example.com` — hostname
+
+- 192.168.1.1 single ip
+- 192.168.1.1-10 ip range
+- 192.168.1.0/24 full subnet
+- example.com hostname
