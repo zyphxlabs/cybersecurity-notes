@@ -1,0 +1,20 @@
+## Why Training Matters
+Nobody is born knowing cyber security, mastering any skill comes down to practice and training and cyber security is no exception. The tricky part with cyber security specifically is that practicing usually requires a proper lab environment so you dont end up messing with production systems, thats basically why training platforms exist in the first place
+
+Theres that saying an ounce of prevention is worth a pound of cure, and it applies here too, its way better to learn something in a training environment than to be figuring it out for the first time during an actual live incident. Proper training raises the overall quality of a teams work which in turn lowers the chances of incidents happening in the first place
+
+From an organizations point of view training basically increases the teams capacity without needing to hire more people, since the team comes prepared for whats coming instead of learning new tools or techniques in the middle of an actual attack. It also makes it possible to hire junior people and get them ramped up faster, while also reducing how much time senior staff have to spend repeatedly teaching the same material over and over
+
+Centralized training also creates a common baseline across the org to actually measure skills and knowledge instead of relying on vague labels like junior or senior, which makes it easier to assign tasks properly and also gives employees clarity on what they need to work on to move to the next level. On top of all that training can genuinely be fun and build teamwork, like the experience of being on a team together during a ctf builds real camaraderie that helps later on
+
+## Choosing Training Solutions
+For smaller teams off the shelf training usually makes the most sense. But once a team grows past a certain size, generally past twenty people, or if the training needs get really specific, it starts making sense to customize the training content to fit the organizations actual needs rather than using something generic
+
+Larger companies usually dont want a standalone tool either, they want something that integrates into their existing software stack, so things like sso support and well documented apis become important since that lets training tie into existing systems smoothly instead of being some isolated thing employees have to jump into separately
+
+## Financial Impact of Training
+Companies invest in training their people the same way a smart investor puts money into assets they expect to grow. Sometimes though you have to actually make the case for it with real numbers instead of just assuming leadership already sees the value
+
+Lets walk through an example, say a cyber security team has ten employees and each one costs the company $80,000 annually, and training is assumed to boost productivity by 4%. The savings from training all ten employees would be 10 times 4% times $80,000 which comes out to $32,000. If training costs $500 per employee that totals $5,000 for all ten. Dividing the savings by the cost gives $32,000 divided by $5,000 which is 640% roi. That kind of number makes a pretty strong case on its own for why training pays for itself
+
+When it comes to actually picking a training vendor there are a few important things worth asking. Who exactly is the training for and what experience level or role do they have. Does the vendor have experience working with similar organizations before. How deep and broad is their content on the topics that actually matter to your team. Can people learn train and practice all within a single platform instead of juggling multiple tools. And while cost obviously matters especially to whoever controls the budget, the cost of training is usually pretty small compared to how much more productive it makes an already expensive team
